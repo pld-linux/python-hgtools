@@ -6,7 +6,6 @@
 
 Summary:	Python 2 classes and setuptools plugin for Mercurial and Git repositories
 Summary(pl.UTF-8):	Klasy Pythona 2 oraz wtyczka setuptools do repozytoriów Mercurial oraz Git
-# Name must match the python module/package name (as in 'import' statement)
 Name:		python-hgtools
 Version:	6.3
 Release:	1
@@ -16,7 +15,6 @@ Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/source/h/hgtools/hgtools-%{version}.zip
 # Source0-md5:	584d74b81b1efae3604c53086d1a3acb
 URL:		https://bitbucket.org/jaraco/hgtools/
-# remove BR: python-devel for 'noarch' packages.
 BuildRequires:	rpm-pythonprov
 # if py_postclean is used
 BuildRequires:	rpmbuild(macros) >= 1.612
