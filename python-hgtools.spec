@@ -17,7 +17,7 @@ Source0:	https://pypi.python.org/packages/source/h/hgtools/hgtools-%{version}.zi
 URL:		https://bitbucket.org/jaraco/hgtools/
 BuildRequires:	rpm-pythonprov
 # if py_postclean is used
-BuildRequires:	rpmbuild(macros) >= 1.612
+BuildRequires:	rpmbuild(macros) >= 1.710
 %if %{with python2}
 %{?with_tests:BuildRequires:	python-pytest}
 BuildRequires:	python-modules >= 1:2.6
