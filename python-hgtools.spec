@@ -1,31 +1,36 @@
 #
 # Conditional build:
-%bcond_without	tests	# do not perform "make test"
+%bcond_with	tests	# test target [pytest-runner doesn't support build-base]
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
 Summary:	Python 2 classes and setuptools plugin for Mercurial and Git repositories
 Summary(pl.UTF-8):	Klasy Pythona 2 oraz wtyczka setuptools do repozytoriów Mercurial oraz Git
 Name:		python-hgtools
-Version:	6.3
-Release:	4
+Version:	6.5.1
+Release:	1
 License:	MIT
 Group:		Libraries/Python
-#Source0Download: https://pypi.python.org/pypi/hgtools
-Source0:	https://pypi.python.org/packages/source/h/hgtools/hgtools-%{version}.zip
-# Source0-md5:	584d74b81b1efae3604c53086d1a3acb
+#Source0Download: https://pypi.python.org/simple/hgtools/
+Source0:	https://pypi.python.org/packages/source/h/hgtools/hgtools-%{version}.tar.gz
+# Source0-md5:	ce8413687e43d5626cdcfee5024a9bc0
 URL:		https://bitbucket.org/jaraco/hgtools/
 BuildRequires:	rpm-pythonprov
-# if py_postclean is used
-BuildRequires:	rpmbuild(macros) >= 1.710
+BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
-%{?with_tests:BuildRequires:	python-pytest}
+%{?with_tests:BuildRequires:	python-backports.unittest_mock}
+%{?with_tests:BuildRequires:	python-pytest >= 2.8}
+%{?with_tests:BuildRequires:	python-pytest-runner}
 BuildRequires:	python-modules >= 1:2.6
 BuildRequires:	python-setuptools
+BuildRequires:	python-setuptools_scm >= 1.9
 %endif
 %if %{with python3}
-%{?with_tests:BuildRequires:	python3-pytest}
+%{?with_tests:BuildRequires:	python3-backports.unittest_mock}
+%{?with_tests:BuildRequires:	python3-pytest >= 2.8}
+%{?with_tests:BuildRequires:	python3-pytest-runner}
 BuildRequires:	python3-setuptools
+BuildRequires:	python3-setuptools_scm >= 1.9
 BuildRequires:	python3-modules >= 1:3.2
 %endif
 Requires:	python-modules >= 1:2.6
@@ -46,7 +51,7 @@ wersji (VCS) Mercurial oraz Git.
 Summary:	Python 3 classes and setuptools plugin for Mercurial and Git repositories
 Summary(pl.UTF-8):	Klasy Pythona 3 oraz wtyczka setuptools do repozytoriów Mercurial oraz Git
 Group:		Libraries/Python
-Requires:	python3-modules
+Requires:	python3-modules >= 1:3.2
 
 %description -n python3-hgtools
 hgtools builds on the setuptools_hg plugin for setuptools. hgtools
@@ -63,13 +68,11 @@ wersji (VCS) Mercurial oraz Git.
 
 %build
 %if %{with python2}
-%{__python} setup.py \
-	build --build-base build-2 %{?with_tests:test}
+%py_build %{?with_tests:test}
 %endif
 
 %if %{with python3}
-%{__python3} setup.py \
-	build --build-base build-3 %{?with_tests:test}
+%py3_build %{?with_tests:test}
 %endif
 
 %install
@@ -91,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc CHANGES.txt LICENSE README.txt todo.txt
+%doc CHANGES.rst LICENSE README.rst
 %{py_sitescriptdir}/hgtools
 %{py_sitescriptdir}/hgtools-%{version}-py*.egg-info
 %endif
@@ -99,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-hgtools
 %defattr(644,root,root,755)
-%doc CHANGES.txt LICENSE README.txt todo.txt
+%doc CHANGES.rst LICENSE README.rst
 %{py3_sitescriptdir}/hgtools
 %{py3_sitescriptdir}/hgtools-%{version}-py*.egg-info
 %endif
