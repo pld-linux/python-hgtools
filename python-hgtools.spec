@@ -8,7 +8,7 @@ Summary:	Python 2 classes and setuptools plugin for Mercurial and Git repositori
 Summary(pl.UTF-8):	Klasy Pythona 2 oraz wtyczka setuptools do repozytoriów Mercurial oraz Git
 Name:		python-hgtools
 Version:	6.5.1
-Release:	3
+Release:	4
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.python.org/simple/hgtools/
